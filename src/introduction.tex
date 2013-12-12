@@ -1,13 +1,19 @@
 \part{Introduction}
 
 
+正则表达式，又称正则表达式、正规表示法、常规表示法（英语：Regular Expression，在代码中常简写为regex、regexp或RE），计算机科学的一个概念。正则表达式使用单个字符串来描述、匹配一系列符合某个句法规则的字符串。在很多文本编辑器里，正则表达式通常被用来检索、替换那些符合某个模式的文本。
 
+许多程序设计语言都支持利用正则表达式进行字符串操作。例如，在Perl中就内建了一个功能强大的正则表达式引擎。正则表达式这个概念最初是由Unix中的工具软件（例如sed和grep）普及开的。正则表达式通常缩写成“regex”，单数有regexp、regex，复数有regexps、regexes、regexen。
 
-In computing, a regular expression (abbreviated regex or regexp) is a sequence of characters that forms a search pattern, mainly for use in pattern matching with strings, or string matching, i.e. ``find and replace"-like operations. The concept arose in the 1950s, when the American mathematician Stephen Kleene formalized the description of a regular language, and came into common use with the Unix text processing utilities ed, an editor, and grep (global regular expression print), a filter.
+Regular Expression的“Regular”一般被译为“正则”、“正规”、“常规”。此处的“Regular”即是“规则”、“规律”的意思，Regular Expression即“描述某种规则的表达式”之意。
+
+In computing, a regular expression (abbreviated regex or regexp)\cite{regular_expression} is a sequence of characters that forms a search pattern, mainly for use in pattern matching with strings, or string matching, i.e. ``find and replace"-like operations. The concept arose in the 1950s, when the American mathematician Stephen Kleene formalized the description of a regular language, and came into common use with the Unix text processing utilities ed, an editor, and grep (global regular expression print), a filter.
 
 Each character in a regular expression is either understood to be a metacharacter with its special meaning, or a regular character with its literal meaning. Together, they can be used to identify textual material of a given pattern, or process a number of instances of it that can vary from a precise equality to a very general similarity of the pattern. The pattern sequence itself is an expression that is a statement in a language designed specifically to represent prescribed targets in the most concise and flexible way to direct the automation of text processing of general text files, specific textual forms, or of random input strings.
 
 A very simple use of a regular expression would be to locate the same word spelled two different ways in a text editor, for example \textcolor{Blue}{\texttt{seriali[sz]e}}. A wildcard match can also achieve this, but wildcard matches differ from regular expressions in that wildcards are limited to what they can pattern (having fewer metacharacters and a simple language-base), whereas regular expressions are not. A usual context of wildcard characters is in globbing similar names in a list of files, whereas regular expressions are usually employed in applications that pattern-match text strings in general. For example, the simple regexp \verb|^[ \t]+||\verb|[ \t]+$| matches excess whitespace at the beginning and end of a line. An advanced regexp used to match any numeral is \verb|^[+-]?(\d+\.?\d*|\verb|\.\d+)([eE][+-]?\d+)?$|.
+
+Many applications and programming languages have their own implementation of regular expressions, often with slight and sometimes with significant differences from other implementations. When two applications use a different implementation of regular expressions, we say that they use different ``regular expression flavors".
 
 
 A regular expression processor processes a regular expression statement expressed in terms of a grammar in a given formal language, and with that examines the target text string, parsing it to identify substrings that are members of its language, the regular expressions.
@@ -40,11 +46,17 @@ Many programming languages provide regular expression capabilities, some built-i
 
 The origins of regular expressions lie in automata theory and formal language theory, both of which are part of theoretical computer science. These fields study models of computation (automata) and ways to describe and classify formal languages. In the 1950s, mathematician Stephen Cole Kleene described these models using his mathematical notation called \textsl{regular sets}. 
 
-The SNOBOL language was an early implementation of pattern matching, but not identical to regular expressions. Among the first appearances of regular expressions in program form was when Ken Thompson built Kleene's notation into the editor QED as a means to match patterns in text files. He later added this capability to the Unix editor ed, which eventually led to the popular search tool grep's use of regular expressions (``grep" is a word derived from the command for regular expression searching in the ed editor: \texttt{g/re/p} meaning ``Global search for Regular Expression and Print matching lines"). Around the same time when Thompson developed QED, a group of researchers including Douglas T. Ross implemented a tool based on regular expressions that is used for lexical analysis in compiler design.[5] Since that time, many variations of the original adaptations of regular expressions have been widely used in Unix and Unix-like utilities including expr, AWK, Emacs, vi, and lex.
+The SNOBOL language was an early implementation of pattern matching, but not identical to regular expressions. Among the first appearances of regular expressions in program form was when Ken Thompson built Kleene's notation into the editor QED as a means to match patterns in text files. He later added this capability to the Unix editor ed, which eventually led to the popular search tool grep's use of regular expressions (``grep" is a word derived from the command for regular expression searching in the ed editor: \texttt{g/re/p} meaning ``Global search for Regular Expression and Print matching lines"). Around the same time when Thompson developed QED, a group of researchers including Douglas T. Ross implemented a tool based on regular expressions that is used for lexical analysis in compiler design. Since that time, many variations of the original adaptations of regular expressions have been widely used in Unix and Unix-like utilities including expr, AWK, Emacs, vi, and lex.
 
 Perl regular expressions derive from a regex library written by Henry Spencer, who later wrote an implementation of Advanced Regular Expressions for Tcl. The Tcl library is a hybrid NFA/DFA implementation with improved performance characteristics, earning praise from Jeffrey Friedl who said, ``...it really seems quite wonderful." Software projects that have adopted Spencer's Tcl regular expression implementation include PostgreSQL. Perl later expanded on Spencer's original library to add many new features, but has not yet caught up with Spencer's Advanced Regular Expressions implementation in terms of performance or Unicode handling. Philip Hazel developed PCRE (Perl Compatible Regular Expressions), which attempts to closely mimic Perl's regular expression functionality and is used by many modern tools including PHP and Apache HTTP Server. Part of the effort in the design of Perl 6 is to improve Perl's regular expression integration, and to increase their scope and capabilities to allow the definition of parsing expression grammars. The result is a mini-language called Perl 6 rules, which are used to define Perl 6 grammar as well as provide a tool to programmers in the language. These rules maintain existing features of Perl 5.x regular expressions, but also allow BNF-style definition of a recursive descent parser via sub-rules.
 
 The use of regular expressions in structured information standards for document and database modeling started in the 1960s and expanded in the 1980s when industry standards like ISO SGML (precursored by ANSI ``GCA 101-1983") consolidated. The kernel of the structure specification language standards consists of regular expressions. Its use is evident in the DTD element group syntax.
+
+最初的正则表达式出现于理论计算机科学的自动控制理论和形式化语言理论中。在这些领域中有对计算（自动控制）的模型和对形式化语言描述与分类的研究。 1940年，Warren McCulloch与Walter Pitts将神经系统中的神经元描述成小而简单的自动控制元。 1950年代，数学家斯蒂芬·科尔·克莱尼利用称之为“正则集合”的数学符号来描述此模型。肯·汤普逊将此符号系统引入编辑器QED，然后是Unix上的编辑器ed，并最终引入grep。自此，正则表达式被广泛地使用于各种Unix或者类似Unix的工具，例如Perl。
+
+Perl的正则表达式源自于Henry Spencer写的regex，它已经演化成了pcre（Perl兼容正则表达式，Perl Compatible Regular Expressions），一个由Philip Hazel开发的，为很多现代工具所使用的库。
+
+各计算机语言之间的正则表达式的集成目前开展的很差。未来的Perl6的子项目Apocalypse的设计中已考虑到了这点。
 
 
 
@@ -81,7 +93,62 @@ These constructions can be combined to form arbitrarily complex expressions, muc
 The precise syntax for regular expressions varies among tools and with context; more detail is given in the \hyperref[regular_expression_syntax]{Syntax section}.
 
 
+正则表达式可以用形式化语言理论的方式来表达。正则表达式由常量和算子组成，它们分别指示字符串的集合和在这些集合上的运算。给定有限字母表Σ定义了下列常量：
 
+\begin{compactitem}
+\item (“空集”) $\emptyset$指示集合$\emptyset$∅
+\item (“空串”) $\varepsilon$指示集合\{$\varepsilon$\}
+\item (“文字字符”)在Σ中的a指示集合\{a\}
+\end{compactitem}
+
+定义了下列运算：
+
+
+\begin{compactitem}
+\item (“串接”) RS指示集合\{ αβ | α$\in$R，β$\in$S \}。例如：$$\text{\texttt{\{"ab","c"\}\{"d","ef"\} = \{"abd","abef","cd","cef"\}}}$$
+
+
+
+
+\item (“选择”) R|S指示R和S的并集。例如：$$\text{\texttt{\{"ab","c"\}}|\texttt{\{"ab","d","ef"\}}}=\texttt{\{"ab","c","d","ef"\}}$$
+
+
+
+\item (“Kleene星号”) R* 指示包含ε并且闭包在字符串串接下的R的最小超集。这是可以通过R中的零或多个字符串的串接得到所有字符串的集合。例如，$$\text{\texttt{\{"ab","c"\}* = \{}} \varepsilon \text{\texttt{,"ab","c","abab","abc","cab","cc","abaab","abcb",...\}}}$$
+
+
+
+\end{compactitem}
+
+
+上述常量和算子形成了克莱尼代数。很多课本使用对选择使用符号$\cup$, $+$或$\vee$替代竖杠。
+
+为了避免括号，假定Kleene星号有最高优先级，接着是串接，接着是并集。如果没有歧义则可以省略括号。例如，\texttt{(ab)c}可以写为\texttt{abc}而\texttt{a|(b(c*))}可以写为\texttt{a|bc*}。
+
+例子：
+
+\begin{compactitem}
+\item \texttt{a|b*}指示\texttt{\{$\varepsilon$,a,b,bb,bbb,...\}}。
+\item \texttt{(a|b)*}指示由包括空串、任意数目个\texttt{a}或\texttt{b}字符组成的所有字符串的集合。
+\item \texttt{ab*(c|$\varepsilon$)}指示开始于一个\texttt{a}接着零或多个\texttt{b}和最终可选的一个\texttt{c}的字符串的集合。
+\end{compactitem}
+
+
+正则表达式的定义非常精简，避免多余的量词\texttt{?}和\texttt{+}，它们可以被表达为：\texttt{a+ = aa*}和\texttt{a? = (a|$\varepsilon$)}。
+
+有时增加补算子～；～R指示在Σ* 上的不在R中的所有字符串的集合。补算子是多余的，因为它使用其他算子来表达（尽管计算这种表示的过程是复杂的，而结果可能以指数增大）。
+
+这种意义上的正则表达式可以表达正则语言，精确的是可被有限状态自动机接受的语言类。但是在简洁性上有重要区别。某类正则语言只能用大小指数增长的自动机来描述，而要求的正则表达式的长度只线性的增长。
+
+正则表达式对应于乔姆斯基层级的类型-3文法。在另一方面，在正则表达式和不导致这种大小上的爆炸的非确定有限状态自动机（NFA）之间有简单的映射，为此NFA经常被用作正则表达式的替代表示。
+
+我们还要在这种形式化中研究表达力。如下面例子所展示的，不同的正则表达式可以表达同样的语言：这种形式化中存在着冗余。
+
+有可能对两个给定正则表达式写一个算法来判定它们所描述的语言是否本质上相等，简约每个表达式到极小确定有限自动机，确定它们是否同构（等价）。
+
+这种冗余可以消减到什么程度?我们可以找到仍有完全表达力的正则表达式的有趣的子集吗? Kleene星号和并集明显是需要的，但是我们或许可以限制它们的使用。这提出了一个令人惊奇的困难问题。因为正则表达式如此简单，没有办法在语法上把它重写成某种规范形式。过去公理化的缺乏导致了星号高度问题。最近Dexter Kozen用克莱尼代数公理化了正则表达式。
+
+很多现实世界的“正则表达式”引擎实现了不能用正则表达式代数表达的特征。
 
 \chapter{Formal language theory}
 
@@ -158,6 +225,11 @@ The redundancy can be eliminated by using Kleene star and set union to find an i
 \chapter{Syntax}
 \label{regular_expression_syntax}
 
+Any non-trivial regex looks daunting to anybody not familiar with them. But with just a bit of experience, you will soon be able to craft your own regular expressions like you have never done anything else. 
+
+A regular expression (regex or regexp for short) is a special text string for describing a search pattern. You can think of regular expressions as wildcards on steroids. You are probably familiar with wildcard notations such as \colorbox{lightgray}{\texttt{*.txt}} to find all text files in a file manager. The regex equivalent is \colorbox{lightgray}{\texttt{.*\textbackslash .txt\$}}.\cite{regexp_wildcard}
+
+But you can do much more with regular expressions, you could use the regular expression \colorbox{lightgray}{\texttt{\textbackslash b[A-Z0-9.\_\%+-]+@[A-Z0-9.-]+\textbackslash .[A-Z]\{2,4\}\textbackslash b}} to search for an email address. Any email address, to be exact. A very similar regular expression (replace the first \colorbox{lightgray}{\texttt{\textbackslash b}} with \colorbox{lightgray}{\texttt{\^{}}} and the last one with \colorbox{lightgray}{\texttt{\$}}) can be used by a programmer to check whether the user entered a properly formatted email address. In just one line of code, whether that code is written in Perl, PHP, Java, a .NET language, or a multitude of other languages.
 
 A regexp pattern matches a target string. The pattern is composed of a sequence of atoms. An atom is what matches at a point in the target string. The simplest atom is a literal, but grouping parts of the pattern to match an atom will require using \texttt{( )} as metacharacters. Metacharacters help form: atoms; quantifiers telling how many atoms (and whether it is a greedy quantifier or not); a logical OR character, which offers a set of alternatives, and a logical NOT character, which negates an atom's existence; and back references to refer to previous atoms of a completing pattern of atoms. A match is made, not when all the atoms of the string are matched, but rather when all the pattern atoms in the regular expression have matched. The idea is to make a small pattern of characters stand for a large number of possible strings, rather than compiling a large list of all the literal possibilities.
 
@@ -165,10 +237,45 @@ Depending on the regexp processor there are about fourteen metacharacters, chara
 
 
 
+
+
 \section{Delimiters}
 
 
 When entering a regular expression in a programming language, they may be represented as a usual string literal, hence usually quoted; this is common in C, Java, and Python for instance, where the regular expression re is entered as ``re". However, they are often written with slashes as delimiters, as in \texttt{/re/} for the regular expression re. This originates in ed, where \texttt{/} is the editor command for searching, and an expression \texttt{/re/} can be used to specify a range of lines (matching the pattern), which can be combined with other commands on either side, most famously \texttt{g/re/p} as in grep (``global regex print"). A similar convention is used in sed, where search and replace is given by s/regexp/replacement/ and patterns can be joined with a comma to specify a range of lines as in \texttt{/re1/,/re2/}. This notation is particularly well-known due to its use in Perl, where it forms part of the syntax distinct from normal string literals. In some cases, such as sed and Perl, alternative delimiters can be used to avoid collision with contents, and to avoid having to escape the delimiters. For example, in sed the command \texttt{s,/,X,} will replace a \texttt{/} with an \texttt{X}, using commas as delimiters.
+
+
+
+一个正则表达式通常被称为一个模式（pattern），为用来描述或者匹配一系列符合某个句法规则的字符串。例如：Handel、Händel和Haendel这三个字符串，都可以由“\texttt{Ha|ä|(ae)ndel}”这个模式来描述。大部分正则表达式的形式都有如下的结构：
+
+\begin{compactitem}
+\item \textbf{选择}
+
+|竖直分隔符代表选择。例如“\texttt{gray|grey}”可以匹配\texttt{grey}或\texttt{gray}。
+
+\item \textbf{数量限定}
+
+某个字符后的数量限定符用来限定前面这个字符允许出现的个数。最常见的数量限定符包括“+”、“?”和“*”（不加数量限定则代表出现一次且仅出现一次）：
+
+\begin{compactitem}
+\item \textbf{+}加号代表前面的字符必须至少出现一次。（1次、或多次）。例如，“\texttt{goo+gle}”可以匹配\texttt{google}、\texttt{gooogle}、\texttt{goooogle}等;
+\item \textbf{?}问号代表前面的字符最多只可以出现一次。（0次、或1次）。例如，“colou?r”可以匹配color或者colour;
+\item \textbf{*}星号代表前面的字符可以不出现，也可以出现一次或者多次。（0次、或1次、或多次）。例如，“\texttt{0*42}”可以匹配\texttt{4}2、\texttt{042}、\texttt{0042}、\texttt{00042}等。
+
+\end{compactitem}
+
+\item \textbf{匹配}
+
+圆括号可以用来定义操作符的范围和优先度。例如，“\texttt{gr(a|e)y}”等价于“\texttt{gray|grey}”，“\texttt{(grand)?father}”匹配\texttt{father}和\texttt{grandfather}。
+
+
+
+
+\end{compactitem}
+
+上述这些构造子都可以自由组合，因此，“\texttt{H(ae?|ä)ndel}”和“\texttt{H(a|ae|ä)ndel}”是相同的。
+
+精确的语法可能因不同的工具或程序而异。
 
 
 \section{Standards}
@@ -238,6 +345,13 @@ In the POSIX standard, Basic Regular Syntax, BRE, requires that the metacharacte
 
 
 \chapter{Uses}
+
+A replacement string, also known as the replacement text, is the text that each regular expression match is replaced with during a search-and-replace. In most applications, the replacement text supports special syntax that allows you to reuse the text matched by the regular expression or parts thereof in the replacement. While replacement strings are fairly simple compared with regular expressions, there is still great variety between the syntax used by various applications and their actual behavior.
+
+There are many software applications and programming languages that support regular expressions. If you are a programmer, you can save yourself lots of time and effort. You can often accomplish with a single regular expression in one or a few lines of code what would otherwise take dozens or hundreds.
+
+If you are not a programmer, you can use regular expressions in many situations just as well. They make finding information a lot easier. You can use them in powerful search and replace operations to quickly make changes across large numbers of files. A simple example is \colorbox{lightgray}{\texttt{gr[ae]y}} which finds both spellings of the word gray in one operation, instead of two. There are many text editors and search and replace tools with decent regex support.
+
 
 
 
