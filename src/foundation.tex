@@ -1,0 +1,256 @@
+\part{Foundation}
+
+Many applications and programming languages have their own implementation of regular expressions, often with slight and sometimes with significant differences from other implementations. When two applications use a different implementation of regular expressions, we say that they use different ``regular expression flavors". 
+
+
+
+%%====================================
+%% 文本模式和匹配
+%%====================================
+
+\chapter{Text Patterns and Matches}
+
+
+
+A regular expression, or regex for short, is a pattern describing a certain amount of text. This first example \colorbox{lightgray}{\texttt{regex}} is actually a perfectly valid regex. It is the most basic pattern, simply matching the literal text \colorbox{lightgray}{\texttt{regex}}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%====================================
+%% 文本字符
+%%====================================
+
+\chapter{Literal Characters}
+
+
+The most basic regular expression consists of a single literal character, such as \colorbox{lightgray}{\texttt{a}}. It matches the first occurrence of that character in the string. If the string is \colorbox{lightgray}{\texttt{Jack is a boy}}, it matches the \colorbox{lightgray}{\texttt{a}} after the \colorbox{lightgray}{\texttt{J}}.
+
+
+This regex can match the second \colorbox{lightgray}{\texttt{a}} too. It only does so when you tell the regex engine to start searching through the string after the first match. In a text editor, you can do so by using its \colorbox{lightgray}{\texttt{"Find Next"}} or \colorbox{lightgray}{\texttt{"Search Forward"}} function. In a programming language, there is usually a separate function that you can call to continue searching through the string after the previous match.
+
+Twelve characters have special meanings in regular expressions: the backslash \colorbox{lightgray}{\texttt{\textbackslash}}, the caret \colorbox{lightgray}{\texttt{\^{}}}, the dollar sign \colorbox{lightgray}{\texttt{\$}}, the period or dot \colorbox{lightgray}{\texttt{.}}, the vertical bar or pipe symbol \colorbox{lightgray}{\texttt{|}}, the question mark \colorbox{lightgray}{\texttt{?}}, the asterisk or star \colorbox{lightgray}{\texttt{*}}, the plus sign \colorbox{lightgray}{\texttt{+}}, the opening parenthesis \colorbox{lightgray}{\texttt{(}}, the closing parenthesis \colorbox{lightgray}{\texttt{)}}, the opening square bracket \colorbox{lightgray}{\texttt{[}}, and the opening curly brace \colorbox{lightgray}{\texttt{\{}}. These special characters are often called "metacharacters".
+
+
+If you want to use any of these characters as a literal in a regex, you need to escape them with a backslash. If you want to match \colorbox{lightgray}{\texttt{1+1=2}}, the correct regex is \colorbox{lightgray}{\texttt{1\textbackslash +1=2}}. Otherwise, the plus sign has a special meaning.
+
+
+
+
+%%====================================
+%% 字符类或字符集
+%%====================================
+
+\chapter{Character Classes or Character Sets}
+
+A ``character class" matches only one out of several characters. To match an \texttt{a} or an \texttt{e}, use \colorbox{lightgray}{\texttt{[ae]}}. You could use this in \colorbox{lightgray}{\texttt{gr[ae]y}} to match either \texttt{gray} or \texttt{grey}. A character class matches only a single character. \colorbox{lightgray}{\texttt{gr[ae]y}} does not match \texttt{graay}, \texttt{graey} or any such thing. The order of the characters inside a character class does not matter.
+
+
+You can use a hyphen inside a character class to specify a range of characters. \colorbox{lightgray}{\texttt{[0-9]}} matches a single digit between 0 and 9. You can use more than one range. \colorbox{lightgray}{\texttt{[0-9a-fA-F]}} matches a single hexadecimal digit, case insensitively. You can combine ranges and single characters. \colorbox{lightgray}{\texttt{[0-9a-fxA-FX]}} matches a hexadecimal digit or the letter \textsf{X}.
+
+
+Typing a caret after the opening square bracket negates the character class. The result is that the character class matches any character that is not in the character class. \colorbox{lightgray}{\texttt{q[\^{}x]}} matches \colorbox{lightgray}{\texttt{qu}} in \texttt{question}. It does not match \colorbox{lightgray}{\texttt{Iraq}} since there is no character after the \textsf{q} for the negated character class to match.
+
+
+%%====================================
+%% 简写字符类
+%%====================================
+
+\chapter{Shorthand Character Classes}
+
+
+\colorbox{lightgray}{\texttt{\textbackslash d}} matches a single character that is a digit, \colorbox{lightgray}{\texttt{\textbackslash w}} matches a ``word character" (alphanumeric characters plus underscore), and \colorbox{lightgray}{\texttt{\textbackslash s}} matches a whitespace character (includes tabs and line breaks). The actual characters matched by the shorthands depends on the software you're using. In modern applications, they include non-English letters and numbers.
+
+
+%%====================================
+%% 非打印字符类
+%%====================================
+
+\chapter{Non-Printable Characters}
+
+
+You can use special character sequences to put non-printable characters in your regular expression. Use \colorbox{lightgray}{\texttt{\textbackslash t}} to match a tab character (ASCII 0x09), \colorbox{lightgray}{\texttt{\textbackslash r}} for carriage return (0x0D) and \colorbox{lightgray}{\texttt{\textbackslash n}} for line feed (0x0A). More exotic non-printables are \colorbox{lightgray}{\texttt{\textbackslash a}} (bell, 0x07), \colorbox{lightgray}{\texttt{\textbackslash e}} (escape, 0x1B), \colorbox{lightgray}{\texttt{\textbackslash f}} (form feed, 0x0C) and \colorbox{lightgray}{\texttt{\textbackslash v}} (vertical tab, 0x0B). Remember that Windows text files use \colorbox{lightgray}{\texttt{\textbackslash r\textbackslash n}} to terminate lines, while UNIX text files use \colorbox{lightgray}{\texttt{\textbackslash n}}.
+
+
+If your application supports Unicode, use \colorbox{lightgray}{\texttt{\textbackslash uFFFF}} or \colorbox{lightgray}{\texttt{\textbackslash x\{FFFF\}}} to insert a Unicode character. \colorbox{lightgray}{\texttt{\textbackslash u20AC}} or \colorbox{lightgray}{\texttt{\textbackslash x\{20AC\}}} matches the euro currency sign.
+
+
+If your application does not support Unicode, use \colorbox{lightgray}{\texttt{\textbackslash xFF}} to match a specific character by its hexadecimal index in the character set. \colorbox{lightgray}{\texttt{\textbackslash xA9}} matches the copyright symbol in the Latin-1 character set.
+
+All non-printable characters can be used directly in the regular expression, or as part of a character class.
+
+
+%%====================================
+%% 点匹配字符
+%%====================================
+
+\chapter{Dot Matches}
+
+The dot matches a single character, except line break characters. It is short for \colorbox{lightgray}{\texttt{[\^{}\textbackslash n]}} (UNIX applications) or \colorbox{lightgray}{\texttt{[\^{}\textbackslash r\textbackslash n]}} (Windows applications). Most applications have a ``dot matches all" or ``single line" mode that makes the dot match any single character, including line breaks.
+
+\colorbox{lightgray}{\texttt{gr.y}} matches \texttt{gray}, \texttt{grey}, \texttt{gr\%y}, etc. Use the dot sparingly. Often, a character class or negated character class is faster and more precise.
+
+
+%%====================================
+%% 锚
+%%====================================
+
+\chapter{Anchors}
+
+
+Anchors do not match any characters. They match a position. \colorbox{lightgray}{\texttt{\^{}}} matches at the start of the string, and \colorbox{lightgray}{\texttt{\$}} matches at the end of the string. Most regex engines have a "``multi-line" mode that makes \colorbox{lightgray}{\texttt{\^{}}} match after any line break, and \colorbox{lightgray}{\texttt{\$}} before any line break. E.g. \colorbox{lightgray}{\texttt{\^{}b}} matches only the first b in \texttt{bob}.
+
+
+\colorbox{lightgray}{\texttt{\textbackslash b}} matches at a word boundary. A word boundary is a position between a character that can be matched by \colorbox{lightgray}{\texttt{\textbackslash w}} and a character that cannot be matched by \colorbox{lightgray}{\texttt{\textbackslash w}}. \colorbox{lightgray}{\texttt{\textbackslash b}} also matches at the start and/or end of the string if the first and/or last characters in the string are word characters. \colorbox{lightgray}{\texttt{\textbackslash B}} matches at every position where \colorbox{lightgray}{\texttt{\textbackslash b}} cannot match.
+
+
+
+
+%%====================================
+%% 轮换
+%%====================================
+
+\chapter{Alternation}
+
+
+Alternation is the regular expression equivalent of ``or". \colorbox{lightgray}{\texttt{cat|dog}} matches \colorbox{lightgray}{\texttt{cat}} in \colorbox{lightgray}{\texttt{About cats and dogs}}. If the regex is applied again, it matches \colorbox{lightgray}{\texttt{dog}}. You can add as many alternatives as you want: \colorbox{lightgray}{\texttt{cat|dog|mouse|fish}}.
+
+Alternation has the lowest precedence of all regex operators. \colorbox{lightgray}{\texttt{cat|dog food}} matches \colorbox{lightgray}{\texttt{cat}} or \colorbox{lightgray}{\texttt{dog food}}. To create a regex that matches cat food or dog food, you need to group the alternatives: \colorbox{lightgray}{\texttt{(cat|dog) food}}.
+
+
+%%====================================
+%% 重复
+%%====================================
+
+\chapter{Repetition}
+
+
+The question mark makes the preceding token in the regular expression optional. \colorbox{lightgray}{\texttt{colou?r}} matches \texttt{colour} or \texttt{color}.
+
+
+The asterisk or star tells the engine to attempt to match the preceding token zero or more times. The plus tells the engine to attempt to match the preceding token once or more. 
+
+\colorbox{lightgray}{\texttt{<[A-Za-z][A-Za-z0-9]*>}} matches an HTML tag without any attributes. \colorbox{lightgray}{\texttt{<[A-Za-z0-9]+>}} is easier to write but matches invalid tags such as \texttt{<1>}.
+
+Use curly braces to specify a specific amount of repetition. Use \colorbox{lightgray}{\texttt{\textbackslash b[1-9][0-9]\{3\}\textbackslash b}} to match a number between 1000 and 9999. \colorbox{lightgray}{\texttt{\textbackslash b[1-9][0-9]\{2,4\}\textbackslash b}} matches a number between 100 and 99999.
+
+
+
+
+
+%%====================================
+%% 贪婪和懒惰重复
+%%====================================
+
+\chapter{Greedy and Lazy Repetition}
+
+
+
+
+
+
+
+
+
+
+
+
+%%====================================
+%% 分组和捕获
+%%====================================
+
+\chapter{Grouping and Capturing}
+
+
+
+
+
+
+
+
+
+
+
+
+%%====================================
+%% 反向引用
+%%====================================
+
+\chapter{Backreferences}
+
+
+
+
+
+%%====================================
+%% 命名组和反向引用
+%%====================================
+
+\chapter{Named Groups and Backreferences}
+
+
+
+
+
+%%====================================
+%% Unicode
+%%====================================
+
+\chapter{Unicode Properties}
+
+
+
+
+
+
+
+
+%%====================================
+%% 环视
+%%====================================
+
+\chapter{Lookaround}
+
+
+
+
+
+
+
+
+
+%%====================================
+%% 自由间隔语法
+%%====================================
+
+\chapter{Free-Spacing Syntax}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bibliographystyle{plainnat}
+\bibliography{VEN}
+\clearpage
